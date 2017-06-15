@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>React Typescript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      (function() {
+          window.__HOST__ = '';
+          var version = '${__version__}';
+          var host = location.host;
+          var resouces_js = [
+            'manifest',
+            'vendor',
+            'app'
+          ];
+          var js_index = 0;
+          var create_css = true;
+          if (host.indexOf('${__pre__}' + window.__HOST__) !== -1) {
+              host = '${__test_path__}' + version + '/';
+          } else if (host.indexOf(window.__HOST__) !== -1) {
+              host = '${__path__}' + version + '/';
+          } else {
+              host = './';
+              resouces_js.splice(2, 0, 'index');
+              create_css = false;
+          }
+          if (create_css){
+            var stylesheet = document.createElement('link');
+            stylesheet.rel = 'stylesheet';
+            stylesheet.href = host + 'app.css';
+            document.head.appendChild(stylesheet);
+          }
+          function dynamicLoaderJS(index){
+            var script = document.createElement('script');
+            script.src = host + resouces_js[index] +'.js';
+            script.setAttribute('crossorigin', '');
+            script.onload = function(e){
+              js_index++;
+              if (js_index > (resouces_js.length - 1)){
+                return;
+              }
+              dynamicLoaderJS(js_index);
+            }
+            document.head.appendChild(script);
+          }
+          dynamicLoaderJS(js_index);
+          
+      }());
+    </script>
+  </body>
+</html>
