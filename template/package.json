@@ -37,6 +37,7 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.1.1",
-    "weex-dingtalk": "^0.1.4"
+    "dingtalk-javascript-sdk": "^0.1.5",
+    "dingtalk-javascript-utility": "^0.1.5",
   }
 }
